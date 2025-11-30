@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blessing Farms | Premium Palm Oil Supply</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Custom Config for Brand Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            wine: '#722F37',    /* Deep Merlot/Wine */
+                            gold: '#D4AF37',    /* Classic Gold */
+                            green: '#2E5A1C',   /* Deep Forest/Palm Green */
+                            light: '#F9F5F0',   /* Off-white Cream */
+                            dark: '#1A1A1A',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Lato"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #722F37;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5a252c;
+        }
+
+        /* Hero Background Image */
+        .hero-pattern {
+            background-color: #2E5A1C;
+            /* Updated to a high-quality plantation image */
+            background-image: url('https://images.unsplash.com/photo-1505935428862-770b6f24f629?q=80&w=2067&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        /* Page Transition Styles */
+        .page-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .page-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Active Link Style */
+        .nav-link.active {
+            color: #D4AF37; /* brand-gold */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-brand-light flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="bg-brand-wine text-white sticky top-0 z-50 shadow-lg border-b-4 border-brand-gold">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#home" class="flex items-center space-x-2 group" onclick="route(event, 'home')">
+                <div class="p-2 bg-brand-gold rounded-full text-brand-wine group-hover:bg-white transition duration-300">
+                    <i data-lucide="sprout" class="w-6 h-6"></i>
+                </div>
+                <span class="text-2xl font-serif font-bold tracking-wide">Blessing <span class="text-brand-gold">Farms</span></span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" onclick="route(event, 'home')" class="nav-link hover:text-brand-gold transition duration-300">Home</a>
+                <a href="#about" onclick="route(event, 'about')" class="nav-link hover:text-brand-gold transition duration-300">About Us</a>
+                <a href="#products" onclick="route(event, 'products')" class="nav-link hover:text-brand-gold transition duration-300">Products</a>
+                <a href="#sustainability" onclick="route(event, 'sustainability')" class="nav-link hover:text-brand-gold transition duration-300">Sustainability</a>
+                <a href="#gallery" onclick="route(event, 'gallery')" class="nav-link hover:text-brand-gold transition duration-300">Gallery</a>
+                <a href="#contact" onclick="route(event, 'contact')" class="px-5 py-2 bg-brand-gold text-brand-wine font-bold rounded hover:bg-white hover:text-brand-wine transition duration-300">Contact Us</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white hover:text-brand-gold">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-wine border-t border-brand-green p-4 absolute w-full shadow-xl">
+            <a href="#home" onclick="route(event, 'home')" class="block py-3 border-b border-white/10 hover:text-brand-gold">Home</a>
+            <a href="#about" onclick="route(event, 'about')" class="block py-3 border-b border-white/10 hover:text-brand-gold">About Us</a>
+            <a href="#products" onclick="route(event, 'products')" class="block py-3 border-b border-white/10 hover:text-brand-gold">Products</a>
+            <a href="#sustainability" onclick="route(event, 'sustainability')" class="block py-3 border-b border-white/10 hover:text-brand-gold">Sustainability</a>
+            <a href="#gallery" onclick="route(event, 'gallery')" class="block py-3 border-b border-white/10 hover:text-brand-gold">Gallery</a>
+            <a href="#contact" onclick="route(event, 'contact')" class="block py-3 mt-2 text-brand-gold font-bold">Contact Us</a>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-grow">
+        
+        <!-- ================= HOME PAGE ================= -->
+        <div id="home" class="page-content active">
+            <!-- Hero Section -->
+            <section class="relative min-h-[600px] flex items-center justify-center text-center hero-pattern text-white overflow-hidden">
+                <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-brand-wine/80 to-brand-green/80"></div>
+                
+                <div class="relative z-10 container mx-auto px-6 fade-in">
+                    <div class="mb-6 inline-block p-2 px-4 border border-brand-gold rounded-full bg-brand-dark/30 backdrop-blur-sm text-brand-gold text-sm font-semibold tracking-wider uppercase">
+                        Premium Quality from the Source
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-serif font-bold mb-6 leading-tight">
+                        Pure Palm Oil,<br>
+                        <span class="text-brand-gold">Nature's Gold.</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-10 max-w-2xl mx-auto text-gray-100 font-light">
+                        Blessing Farms provides high-quality, sustainably sourced palm oil for industrial, culinary, and cosmetic needs.
+                    </p>
+                    <div class="flex flex-col md:flex-row justify-center gap-4">
+                        <a href="#products" onclick="route(event, 'products')" class="px-8 py-4 bg-brand-gold text-brand-wine font-bold text-lg rounded shadow-lg hover:bg-white transition duration-300 transform hover:-translate-y-1">
+                            Explore Our Products
+                        </a>
+                        <a href="#contact" onclick="route(event, 'contact')" class="px-8 py-4 bg-transparent border-2 border-white text-white font-bold text-lg rounded hover:bg-white hover:text-brand-green transition duration-300">
+                            Get a Quote
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="py-12 bg-white relative -mt-10 z-20 container mx-auto px-6 rounded-lg shadow-xl border-t-4 border-brand-gold mb-12">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-gray-200">
+                    <div class="p-4">
+                        <i data-lucide="check-circle" class="w-10 h-10 text-brand-green mx-auto mb-3"></i>
+                        <h3 class="text-3xl font-bold text-brand-wine">100%</h3>
+                        <p class="text-gray-600">Pure Quality</p>
+                    </div>
+                    <div class="p-4">
+                        <i data-lucide="truck" class="w-10 h-10 text-brand-gold mx-auto mb-3"></i>
+                        <h3 class="text-3xl font-bold text-brand-wine">24/7</h3>
+                        <p class="text-gray-600">Supply Chain</p>
+                    </div>
+                    <div class="p-4">
+                        <i data-lucide="users" class="w-10 h-10 text-brand-green mx-auto mb-3"></i>
+                        <h3 class="text-3xl font-bold text-brand-wine">500+</h3>
+                        <p class="text-gray-600">Happy Clients</p>
+                    </div>
+                    <div class="p-4">
+                        <i data-lucide="award" class="w-10 h-10 text-brand-gold mx-auto mb-3"></i>
+                        <h3 class="text-3xl font-bold text-brand-wine">Est. 2025</h3>
+                        <p class="text-gray-600">Founded</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Visual Highlights Section -->
+            <section class="py-12">
+                <div class="container mx-auto px-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Image 1 -->
+                        <div class="relative h-72 rounded-xl overflow-hidden shadow-lg group">
+                            <img src="https://images.unsplash.com/photo-1598155523122-3842334d6c10?q=80&w=800&auto=format&fit=crop" alt="Sustainable Farming" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90"></div>
+                            <div class="absolute bottom-0 left-0 p-6">
+                                <h3 class="text-white text-2xl font-serif font-bold mb-1">Sustainable Farming</h3>
+                                <p class="text-gray-200 text-sm opacity-0 group-hover:opacity-100 transition duration-300 transform translate-y-2 group-hover:translate-y-0">Nurturing nature for the best yield.</p>
+                            </div>
+                        </div>
+
+                        <!-- Image 2 -->
+                        <div class="relative h-72 rounded-xl overflow-hidden shadow-lg group mt-8 md:mt-0">
+                            <img src="https://images.unsplash.com/photo-1615486511484-92e172cc416d?q=80&w=800&auto=format&fit=crop" alt="Premium Extraction" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90"></div>
+                            <div class="absolute bottom-0 left-0 p-6">
+                                <h3 class="text-white text-2xl font-serif font-bold mb-1">Premium Extraction</h3>
+                                <p class="text-gray-200 text-sm opacity-0 group-hover:opacity-100 transition duration-300 transform translate-y-2 group-hover:translate-y-0">State-of-the-art processing.</p>
+                            </div>
+                        </div>
+
+                        <!-- Image 3 -->
+                        <div class="relative h-72 rounded-xl overflow-hidden shadow-lg group mt-8 md:mt-0">
+                            <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=80&w=800&auto=format&fit=crop" alt="Community Growth" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90"></div>
+                            <div class="absolute bottom-0 left-0 p-6">
+                                <h3 class="text-white text-2xl font-serif font-bold mb-1">Community Growth</h3>
+                                <p class="text-gray-200 text-sm opacity-0 group-hover:opacity-100 transition duration-300 transform translate-y-2 group-hover:translate-y-0">Empowering local farmers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials Section -->
+            <section class="py-16 bg-white mb-12">
+                <div class="container mx-auto px-6 text-center">
+                    <span class="text-brand-green font-bold uppercase tracking-wider text-sm">Client Stories</span>
+                    <h2 class="text-3xl font-serif font-bold text-brand-wine mb-12 mt-2">What Our Partners Say</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Testimonial 1 -->
+                        <div class="bg-brand-light p-8 rounded-xl shadow-md border border-gray-100 relative mt-4">
+                            <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-brand-gold rounded-full flex items-center justify-center text-brand-wine shadow-lg">
+                                <i data-lucide="quote" class="w-5 h-5 fill-current"></i>
+                            </div>
+                            <p class="text-gray-600 italic mb-6 pt-4">"Blessing Farms has been our consistent supplier. Their crude palm oil quality is unmatched in the region, helping us maintain our product standards effortlessly."</p>
+                            <div>
+                                <div class="font-bold text-brand-wine text-lg">Kwame Asante</div>
+                                <div class="text-xs text-brand-green uppercase tracking-wide font-bold">CEO, Golden Soap Industries</div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 2 -->
+                        <div class="bg-brand-light p-8 rounded-xl shadow-md border border-gray-100 relative mt-4">
+                             <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-brand-gold rounded-full flex items-center justify-center text-brand-wine shadow-lg">
+                                <i data-lucide="quote" class="w-5 h-5 fill-current"></i>
+                            </div>
+                            <p class="text-gray-600 italic mb-6 pt-4">"Reliability is key in food manufacturing. We've never had a shipment delay with Blessing Farms. Truly a partner we can count on for our bulk supply needs."</p>
+                            <div>
+                                <div class="font-bold text-brand-wine text-lg">Sarah Mensah</div>
+                                <div class="text-xs text-brand-green uppercase tracking-wide font-bold">Procurement Head, Accra Foods</div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 3 -->
+                        <div class="bg-brand-light p-8 rounded-xl shadow-md border border-gray-100 relative mt-4">
+                             <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-brand-gold rounded-full flex items-center justify-center text-brand-wine shadow-lg">
+                                <i data-lucide="quote" class="w-5 h-5 fill-current"></i>
+                            </div>
+                            <p class="text-gray-600 italic mb-6 pt-4">"The quality of their palm olein has significantly improved the shelf life of our snacks. The clarity and consistency of the oil are exactly what we were looking for."</p>
+                            <div>
+                                <div class="font-bold text-brand-wine text-lg">David Osei</div>
+                                <div class="text-xs text-brand-green uppercase tracking-wide font-bold">Manager, Tasty Bites Ltd</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Home Teaser: Why Choose Us -->
+            <section class="py-16 bg-brand-light">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-3xl font-serif font-bold text-brand-wine mb-8">Trusted by Industries Worldwide</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto mb-12">
+                        From cosmetic giants to food manufacturers, Blessing Farms is the silent partner behind the quality of countless products. We ensure our palm oil meets rigorous international standards.
+                    </p>
+                    <a href="#about" onclick="route(event, 'about')" class="text-brand-green font-bold border-b-2 border-brand-gold hover:text-brand-wine transition pb-1">Read More About Us</a>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= ABOUT PAGE ================= -->
+        <div id="about" class="page-content">
+            <!-- Page Header -->
+            <div class="bg-brand-green py-20 relative overflow-hidden">
+                <div class="absolute inset-0 bg-brand-wine opacity-30"></div>
+                <div class="container mx-auto px-6 relative z-10 text-center">
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-white mb-4">About Blessing Farms</h1>
+                    <p class="text-brand-gold text-lg">Cultivating Excellence Since 2025</p>
+                </div>
+            </div>
+
+            <section class="py-20 bg-brand-light">
+                <div class="container mx-auto px-6">
+                    <div class="flex flex-col md:flex-row items-center gap-12">
+                        <div class="md:w-1/2 relative">
+                            <div class="w-full h-96 bg-brand-wine rounded-lg shadow-2xl relative overflow-hidden group">
+                                <div class="absolute inset-0 bg-gradient-to-tr from-brand-dark to-transparent opacity-40"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <i data-lucide="sprout" class="w-32 h-32 text-brand-gold opacity-20"></i>
+                                </div>
+                            </div>
+                            <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded shadow-lg border-l-4 border-brand-wine hidden md:block">
+                                <p class="font-serif italic text-brand-wine text-lg">"Quality is not an act,<br> it is a habit."</p>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2">
+                            <h2 class="text-brand-green font-bold tracking-widest uppercase mb-2 text-sm">Our Story</h2>
+                            <h3 class="text-4xl font-serif font-bold text-brand-wine mb-6">Deep Roots, High Standards</h3>
+                            <p class="text-gray-600 leading-relaxed mb-6">
+                                Established with a vision to provide the purest palm oil products to the world, Blessing Farms has grown from a local cultivation effort to a major regional supplier. We bridge the gap between traditional farming methods and modern processing standards.
+                            </p>
+                            <p class="text-gray-600 leading-relaxed mb-8">
+                                Our commitment goes beyond just supply; we are dedicated to ethical sourcing, supporting local farmers, and ensuring that every liter of oil that leaves our facility meets the highest gold standard of quality.
+                            </p>
+                            
+                            <div class="grid grid-cols-2 gap-4 mt-8">
+                                <div class="bg-white p-4 rounded shadow border-l-4 border-brand-gold">
+                                    <h4 class="font-bold text-brand-wine">Mission</h4>
+                                    <p class="text-sm text-gray-600">To produce and supply pure, hygienic, and affordable premium natural palm oil that enriches meals and supports healthier cooking for our community</p>
+                                </div>
+                                <div class="bg-white p-4 rounded shadow border-l-4 border-brand-green">
+                                    <h4 class="font-bold text-brand-wine">Vision</h4>
+                                    <p class="text-sm text-gray-600">To grow to be the most trusted and leading supplier of premium palm oil in our region, recognized for quality, consistency, and customer satisfaction</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= PRODUCTS PAGE ================= -->
+        <div id="products" class="page-content">
+             <!-- Page Header -->
+             <div class="bg-brand-gold py-20 relative overflow-hidden">
+                <div class="absolute inset-0 bg-black opacity-10"></div>
+                <div class="container mx-auto px-6 relative z-10 text-center">
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-brand-wine mb-4">Our Products</h1>
+                    <p class="text-brand-wine font-semibold text-lg">Versatile Solutions for Every Industry</p>
+                </div>
+            </div>
+
+            <section class="py-20 bg-white">
+                <div class="container mx-auto px-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Product 1 -->
+                        <div class="group bg-brand-light rounded-xl overflow-hidden hover:shadow-2xl transition duration-300 border border-gray-100 flex flex-col">
+                            <div class="h-56 bg-brand-green relative overflow-hidden">
+                                <div class="absolute inset-0 bg-brand-wine opacity-20 group-hover:opacity-10 transition"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <i data-lucide="droplet" class="w-20 h-20 text-white opacity-80"></i>
+                                </div>
+                            </div>
+                            <div class="p-8 flex-grow">
+                                <h3 class="text-2xl font-serif font-bold text-brand-wine mb-3">Crude Palm Oil (CPO)</h3>
+                                <p class="text-gray-600 mb-4">Unrefined, nutrient-rich red palm oil. Contains high beta-carotene and Vitamin E.</p>
+                                <ul class="text-sm text-gray-500 mb-6 list-disc list-inside">
+                                    <li>Soap Manufacturing</li>
+                                    <li>Biofuel Production</li>
+                                    <li>Animal Feed</li>
+                                </ul>
+                            </div>
+                            <div class="p-8 pt-0">
+                                <a href="#contact" onclick="route(event, 'contact')" class="block w-full py-3 text-center border border-brand-wine text-brand-wine rounded font-semibold hover:bg-brand-wine hover:text-white transition">Request Quote</a>
+                            </div>
+                        </div>
+
+                        <!-- Product 2 -->
+                        <div class="group bg-brand-light rounded-xl overflow-hidden hover:shadow-2xl transition duration-300 border-t-4 border-brand-gold shadow-lg transform md:-translate-y-4 flex flex-col">
+                            <div class="absolute top-0 right-0 bg-brand-gold text-brand-wine text-xs font-bold px-3 py-1 uppercase rounded-bl">Best Seller</div>
+                            <div class="h-56 bg-brand-wine relative overflow-hidden">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <i data-lucide="flask-conical" class="w-20 h-20 text-brand-gold opacity-80"></i>
+                                </div>
+                            </div>
+                            <div class="p-8 flex-grow">
+                                <h3 class="text-2xl font-serif font-bold text-brand-wine mb-3">Refined Palm Olein</h3>
+                                <p class="text-gray-600 mb-4">Golden, clear, and odorless. Double fractionated for high stability.</p>
+                                <ul class="text-sm text-gray-500 mb-6 list-disc list-inside">
+                                    <li>Cooking & Frying Oil</li>
+                                    <li>Snack Manufacturing</li>
+                                    <li>Bakery Fats</li>
+                                </ul>
+                            </div>
+                            <div class="p-8 pt-0">
+                                <a href="#contact" onclick="route(event, 'contact')" class="block w-full py-3 text-center bg-brand-gold text-brand-wine rounded font-semibold hover:bg-opacity-90 transition">Request Quote</a>
+                            </div>
+                        </div>
+
+                        <!-- Product 3 -->
+                        <div class="group bg-brand-light rounded-xl overflow-hidden hover:shadow-2xl transition duration-300 border border-gray-100 flex flex-col">
+                            <div class="h-56 bg-brand-green relative overflow-hidden">
+                                <div class="absolute inset-0 bg-brand-wine opacity-20 group-hover:opacity-10 transition"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <i data-lucide="factory" class="w-20 h-20 text-white opacity-80"></i>
+                                </div>
+                            </div>
+                            <div class="p-8 flex-grow">
+                                <h3 class="text-2xl font-serif font-bold text-brand-wine mb-3">Palm Kernel Oil</h3>
+                                <p class="text-gray-600 mb-4">Extracted from the nut. High in lauric acid, solid at room temperature.</p>
+                                <ul class="text-sm text-gray-500 mb-6 list-disc list-inside">
+                                    <li>Confectionery (Chocolate)</li>
+                                    <li>High-end Cosmetics</li>
+                                    <li>Pharmaceuticals</li>
+                                </ul>
+                            </div>
+                            <div class="p-8 pt-0">
+                                <a href="#contact" onclick="route(event, 'contact')" class="block w-full py-3 text-center border border-brand-wine text-brand-wine rounded font-semibold hover:bg-brand-wine hover:text-white transition">Request Quote</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= SUSTAINABILITY PAGE ================= -->
+        <div id="sustainability" class="page-content">
+            <!-- ... existing content for sustainability ... -->
+             <!-- Page Header -->
+            <div class="bg-brand-wine py-20 relative overflow-hidden">
+                <div class="container mx-auto px-6 relative z-10 text-center">
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Sustainability</h1>
+                    <p class="text-brand-gold text-lg">Protecting the Environment, Empowering Communities</p>
+                </div>
+            </div>
+
+            <section class="py-20 bg-white">
+                <div class="container mx-auto px-6 max-w-4xl">
+                    <div class="mb-12 text-center">
+                        <p class="text-xl text-gray-600 leading-relaxed">
+                            At Blessing Farms, we believe that high-quality palm oil should not come at the cost of the Earth. We are strictly committed to <span class="text-brand-wine font-bold">No Deforestation, No Peat, and No Exploitation (NDPE)</span> policies.
+                        </p>
+                    </div>
+
+                    <div class="space-y-12">
+                        <div class="flex flex-col md:flex-row gap-8 items-center">
+                            <div class="w-full md:w-1/3 bg-brand-light p-6 rounded-lg text-center">
+                                <i data-lucide="leaf" class="w-16 h-16 text-brand-green mx-auto mb-4"></i>
+                                <h3 class="text-xl font-bold text-brand-wine">RSPO Certified</h3>
+                            </div>
+                            <div class="w-full md:w-2/3">
+                                <h3 class="text-2xl font-serif font-bold text-brand-green mb-2">Responsible Farming</h3>
+                                <p class="text-gray-600">We strictly adhere to the Roundtable on Sustainable Palm Oil (RSPO) standards. Our supply chain is fully traceable, ensuring that no oil comes from protected forests or illegal plantations.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col md:flex-row-reverse gap-8 items-center">
+                            <div class="w-full md:w-1/3 bg-brand-light p-6 rounded-lg text-center">
+                                <i data-lucide="users" class="w-16 h-16 text-brand-gold mx-auto mb-4"></i>
+                                <h3 class="text-xl font-bold text-brand-wine">Community First</h3>
+                            </div>
+                            <div class="w-full md:w-2/3 text-right md:text-left">
+                                <h3 class="text-2xl font-serif font-bold text-brand-green mb-2">Farmer Support Programs</h3>
+                                <p class="text-gray-600">We work directly with smallholder farmers, providing them with training, modern tools, and fair wages. By cutting out middlemen, we ensure prosperity for the local communities that grow our crops.</p>
+                            </div>
+                        </div>
+                        
+                         <div class="flex flex-col md:flex-row gap-8 items-center">
+                            <div class="w-full md:w-1/3 bg-brand-light p-6 rounded-lg text-center">
+                                <i data-lucide="recycle" class="w-16 h-16 text-brand-green mx-auto mb-4"></i>
+                                <h3 class="text-xl font-bold text-brand-wine">Zero Waste</h3>
+                            </div>
+                            <div class="w-full md:w-2/3">
+                                <h3 class="text-2xl font-serif font-bold text-brand-green mb-2">Circular Economy</h3>
+                                <p class="text-gray-600">Nothing goes to waste at Blessing Farms. Empty fruit bunches are used as organic fertilizer, and shells are used as biomass fuel to power our processing plants.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= GALLERY PAGE ================= -->
+        <div id="gallery" class="page-content">
+            <!-- Page Header -->
+            <div class="bg-brand-green py-20 relative overflow-hidden">
+                <div class="absolute inset-0 bg-brand-wine opacity-30"></div>
+                <div class="container mx-auto px-6 relative z-10 text-center">
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-white mb-4">Our Gallery</h1>
+                    <p class="text-brand-gold text-lg">A Glimpse into Blessing Farms</p>
+                </div>
+            </div>
+
+            <!-- Photo Gallery Section -->
+            <section class="py-20 bg-brand-light">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-serif font-bold text-brand-wine">Life at the Plantation</h2>
+                        <div class="w-24 h-1 bg-brand-gold mx-auto mt-4 rounded"></div>
+                    </div>
+
+                    <!-- Masonry-like Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Image 1 -->
+                        <div class="relative group overflow-hidden rounded-xl shadow-lg h-64">
+                            <img src="https://images.unsplash.com/photo-1598155523122-3842334d6c10?q=80&w=800&auto=format&fit=crop" alt="Palm Plantation" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+                                <p class="text-white font-bold">Lush Plantations</p>
+                            </div>
+                        </div>
+                        <!-- Image 2 -->
+                        <div class="relative group overflow-hidden rounded-xl shadow-lg h-64">
+                            <img src="https://images.unsplash.com/photo-1628062049617-64906b32877a?q=80&w=800&auto=format&fit=crop" alt="Palm Fruit Harvest" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+                                <p class="text-white font-bold">Fresh Harvest</p>
+                            </div>
+                        </div>
+                        <!-- Image 3 -->
+                        <div class="relative group overflow-hidden rounded-xl shadow-lg h-64">
+                            <img src="https://images.unsplash.com/photo-1532635241-17e820acc59f?q=80&w=800&auto=format&fit=crop" alt="Processing Facility" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+                                <p class="text-white font-bold">Processing Unit</p>
+                            </div>
+                        </div>
+                        <!-- Image 4 -->
+                        <div class="relative group overflow-hidden rounded-xl shadow-lg h-64">
+                            <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?q=80&w=800&auto=format&fit=crop" alt="Nature" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+                                <p class="text-white font-bold">Eco-Friendly Zone</p>
+                            </div>
+                        </div>
+                        <!-- Image 5 -->
+                        <div class="relative group overflow-hidden rounded-xl shadow-lg h-64">
+                            <img src="https://images.unsplash.com/photo-1615486511484-92e172cc416d?q=80&w=800&auto=format&fit=crop" alt="Finished Oil" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+                                <p class="text-white font-bold">Premium Gold Oil</p>
+                            </div>
+                        </div>
+                        <!-- Image 6 -->
+                        <div class="relative group overflow-hidden rounded-xl shadow-lg h-64">
+                            <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=80&w=800&auto=format&fit=crop" alt="Community" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
+                                <p class="text-white font-bold">Community Farmers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Video Gallery Section -->
+            <section class="py-20 bg-white border-t border-brand-light">
+                <div class="container mx-auto px-6">
+                     <div class="text-center mb-12">
+                        <h2 class="text-3xl font-serif font-bold text-brand-wine">Video Tour</h2>
+                        <p class="text-gray-500 mt-2">See our processes in motion.</p>
+                        <div class="w-24 h-1 bg-brand-gold mx-auto mt-4 rounded"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Video 1 -->
+                        <div class="rounded-xl overflow-hidden shadow-lg bg-black">
+                            <div class="aspect-w-16 aspect-h-9 relative h-64">
+                                <!-- Using a poster image to simulate the video before play -->
+                                <video controls class="w-full h-full object-cover" poster="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=800&auto=format&fit=crop">
+                                    <source src="#" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="absolute top-4 left-4 bg-brand-gold text-brand-wine px-3 py-1 rounded text-xs font-bold uppercase z-10 pointer-events-none">
+                                    Harvesting
+                                </div>
+                            </div>
+                            <div class="p-6 bg-white">
+                                <h3 class="text-xl font-bold text-brand-wine">Sustainable Harvesting</h3>
+                                <p class="text-gray-600 mt-2 text-sm">Watch how our farmers carefully select only the ripest fruit bunches for processing.</p>
+                            </div>
+                        </div>
+
+                         <!-- Video 2 -->
+                         <div class="rounded-xl overflow-hidden shadow-lg bg-black">
+                            <div class="aspect-w-16 aspect-h-9 relative h-64">
+                                 <video controls class="w-full h-full object-cover" poster="https://images.unsplash.com/photo-1504280509243-489077f9cd48?q=80&w=800&auto=format&fit=crop">
+                                    <source src="#" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="absolute top-4 left-4 bg-brand-gold text-brand-wine px-3 py-1 rounded text-xs font-bold uppercase z-10 pointer-events-none">
+                                    Processing
+                                </div>
+                            </div>
+                            <div class="p-6 bg-white">
+                                <h3 class="text-xl font-bold text-brand-wine">Refining Process</h3>
+                                <p class="text-gray-600 mt-2 text-sm">A tour inside our state-of-the-art facility where crude oil is refined into pure olein.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= CONTACT PAGE ================= -->
+        <div id="contact" class="page-content">
+            <!-- Page Header -->
+            <div class="bg-brand-dark py-20 relative overflow-hidden">
+                 <div class="container mx-auto px-6 relative z-10 text-center">
+                    <h1 class="text-4xl md:text-5xl font-serif font-bold text-brand-gold mb-4">Contact Us</h1>
+                    <p class="text-white text-lg">Let's Discuss Your Supply Needs</p>
+                </div>
+            </div>
+
+            <section class="py-20 bg-brand-light relative">
+                <div class="container mx-auto px-6">
+                    <div class="flex flex-col lg:flex-row gap-12">
+                        
+                        <!-- Contact Info -->
+                        <div class="lg:w-1/3 space-y-8">
+                             <div class="bg-white p-8 rounded-lg shadow-md border-l-4 border-brand-green">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="bg-brand-green/10 p-3 rounded-full"><i data-lucide="map-pin" class="w-6 h-6 text-brand-green"></i></div>
+                                    <h4 class="text-xl font-bold text-brand-wine">Visit Us</h4>
+                                </div>
+                                <p class="text-gray-600 pl-16">Accra Institute of Technology,<br>Kokomlemle Accra Ghana</p>
+                            </div>
+                            
+                            <div class="bg-white p-8 rounded-lg shadow-md border-l-4 border-brand-gold">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="bg-brand-gold/10 p-3 rounded-full"><i data-lucide="phone" class="w-6 h-6 text-brand-gold"></i></div>
+                                    <h4 class="text-xl font-bold text-brand-wine">Call Us</h4>
+                                </div>
+                                <p class="text-gray-600 pl-16 font-bold text-lg">+233 55 123 4567</p>
+                                <a href="https://wa.me/233551234567" target="_blank" class="block mt-2 pl-16 text-sm text-green-600 hover:underline font-bold flex items-center">
+                                    <span class="mr-1">Chat on WhatsApp</span>
+                                    <i data-lucide="external-link" class="w-3 h-3"></i>
+                                </a>
+                            </div>
+
+                            <div class="bg-white p-8 rounded-lg shadow-md border-l-4 border-brand-wine">
+                                <div class="flex items-center space-x-4 mb-4">
+                                    <div class="bg-brand-wine/10 p-3 rounded-full"><i data-lucide="mail" class="w-6 h-6 text-brand-wine"></i></div>
+                                    <h4 class="text-xl font-bold text-brand-wine">Email Us</h4>
+                                </div>
+                                <p class="text-gray-600 pl-16">sales@blessingfarms.com</p>
+                            </div>
+                        </div>
+
+                        <!-- Contact Form -->
+                        <div class="lg:w-2/3">
+                            <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl border-t-8 border-brand-wine">
+                                <h3 class="text-2xl font-serif font-bold text-brand-wine mb-6">Send us a Message</h3>
+                                <form onsubmit="sendEmail(event)">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-bold mb-2">First Name</label>
+                                            <input type="text" id="firstName" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-brand-gold transition" required>
+                                        </div>
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-bold mb-2">Last Name</label>
+                                            <input type="text" id="lastName" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-brand-gold transition" required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
+                                            <input type="email" id="email" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-brand-gold transition" required>
+                                        </div>
+                                        <div>
+                                            <label class="block text-gray-700 text-sm font-bold mb-2">Phone Number</label>
+                                            <input type="tel" id="phone" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-brand-gold transition">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-6">
+                                        <label class="block text-gray-700 text-sm font-bold mb-2">Subject</label>
+                                        <select id="subject" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-brand-gold transition">
+                                            <option>General Inquiry</option>
+                                            <option>Wholesale/Bulk Order</option>
+                                            <option>Partnership Proposal</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-8">
+                                        <label class="block text-gray-700 text-sm font-bold mb-2">Message</label>
+                                        <textarea id="message" rows="4" class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-brand-gold transition" required></textarea>
+                                    </div>
+
+                                    <button type="submit" class="w-full md:w-auto px-8 py-4 bg-brand-wine text-white font-bold rounded hover:bg-brand-gold hover:text-brand-wine transition duration-300">
+                                        Send Message
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white pt-16 pb-8 border-t-8 border-brand-gold mt-auto">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="p-1 bg-brand-gold rounded-full text-brand-wine">
+                            <i data-lucide="sprout" class="w-5 h-5"></i>
+                        </div>
+                        <span class="text-xl font-serif font-bold">Blessing Farms</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Your trusted partner in high-quality palm oil supply. Cultivating nature's goodness for your needs.
+                    </p>
+                </div>
+                
+                <!-- Links -->
+                <div>
+                    <h4 class="text-brand-gold font-bold mb-6 uppercase text-sm tracking-wider">Quick Links</h4>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li><a href="#home" onclick="route(event, 'home')" class="hover:text-white transition">Home</a></li>
+                        <li><a href="#about" onclick="route(event, 'about')" class="hover:text-white transition">About Us</a></li>
+                        <li><a href="#products" onclick="route(event, 'products')" class="hover:text-white transition">Products</a></li>
+                        <li><a href="#contact" onclick="route(event, 'contact')" class="hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Legal -->
+                <div>
+                    <h4 class="text-brand-gold font-bold mb-6 uppercase text-sm tracking-wider">Legal</h4>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white transition">Shipping Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-brand-gold font-bold mb-6 uppercase text-sm tracking-wider">Newsletter</h4>
+                    <p class="text-gray-400 text-sm mb-4">Subscribe for market updates and price alerts.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Email" class="bg-gray-800 text-white px-4 py-2 rounded-l w-full focus:outline-none focus:ring-1 focus:ring-brand-gold">
+                        <button class="bg-brand-gold text-brand-wine px-4 py-2 rounded-r font-bold hover:bg-white transition">Go</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm">&copy; 2025 Blessing Farms. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-brand-gold"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-brand-gold"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-brand-gold"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/233551234567" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:bg-[#20bd5a] transition duration-300 transform hover:scale-110 flex items-center justify-center group">
+        <!-- WhatsApp SVG Icon -->
+        <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 fill-current stroke-none">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+        </svg>
+        <span class="absolute right-full mr-3 bg-white text-gray-800 px-3 py-1 rounded shadow text-sm font-bold opacity-0 group-hover:opacity-100 transition duration-300 whitespace-nowrap pointer-events-none">
+            Chat with us
+        </span>
+    </a>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // EMAIL LOGIC
+        function sendEmail(event) {
+            event.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Construct email body
+            const body = `Name: ${firstName} ${lastName}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0A%0D%0AMessage:%0D%0A${message}`;
+            
+            // Open mail client
+            window.location.href = `mailto:sales@blessingfarms.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+        }
+
+        // ROUTER LOGIC
+        function route(event, pageId) {
+            if(event) event.preventDefault();
+            
+            // 1. Hide all pages
+            const pages = document.querySelectorAll('.page-content');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            // 2. Show selected page
+            const targetPage = document.getElementById(pageId);
+            if(targetPage) {
+                targetPage.classList.add('active');
+            }
+
+            // 3. Close mobile menu if open
+            menu.classList.add('hidden');
+
+            // 4. Scroll to top
+            window.scrollTo(0, 0);
+
+            // 5. Update Active Navigation State
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if(link.getAttribute('href') === '#' + pageId) {
+                    link.classList.add('active');
+                }
+            });
+
+            // 6. Refresh Icons (sometimes needed after display changes)
+            lucide.createIcons();
+        }
+
+        // Handle initial load based on URL hash (e.g., website.html#contact)
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.substring(1); // remove '#'
+            if(hash && document.getElementById(hash)) {
+                route(null, hash);
+            } else {
+                route(null, 'home');
+            }
+        });
+    </script>
+</body>
+</html>
